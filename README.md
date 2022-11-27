@@ -18,53 +18,59 @@ To write a program to predict the marks scored by a student using the simple lin
 
 ## Program:
 ```
-/*
+
 Program to implement the simple linear regression model for predicting the marks scored.
 Developed by: P Shobika
 RegisterNumber:  212221230096
 
 import numpy as np
 import pandas as pd
-dataset=pd.read_csv('/content/Placement_Data.csv')
-dataset.head()
-dataset.tail()
-X=dataset.iloc[:,:-1].values
-Y=dataset.iloc[:,-1].values
-print(X)
-print(Y)
+dataset=pd.read_csv('student_scores.csv')
+x=dataset.iloc[:,:-1].values
+y=dataset.iloc[:,1].values
+print(x)
+print(y)
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=1/3,random_state=0)
 from sklearn.linear_model import LinearRegression
 reg=LinearRegression()
-reg.fit(X_train,Y_train)
-Y_pred=reg.predict(X_test)
-import matplotlib.pyplot as plt
-from sklearn.metrics import mean_absolute_error,mean_squared_error
+reg.fit(x_train,y_train)
 
-plt.scatter(X_train,Y_train,color='green')
-plt.plot(X_train,reg.predict(X_train),color='orange')
-plt.title('Training set (H vs S)')
-plt.xlabel('Hours')
-plt.ylabel("scores")
-plt.scatter(X_test,Y_test,color='red')
-plt.plot(X_test,reg.predict(X_test),color='black')
-plt.title('Test set (H vs S)')
-plt.xlabel('Hours')
-plt.ylabel("scores")
-mse=mean_squared_error(Y_test,Y_pred)
+y_pred=reg.predict(x_test)
+y_pred
+y_test
+plt.scatter(x_train,y_train,color='red')
+plt.plot(x_train,reg.predict(x_train),color="purple")
+plt.title("h vs s (Training Set)")
+plt.xlabel("Hours")
+plt.ylabel("Scores")
+plt.show()
+plt.scatter(x_test,y_test,color='black')
+plt.plot(x_test,reg.predict(x_test),color="orange")
+plt.title("h vs s (Testing Set)")
+plt.xlabel("Hours")
+plt.ylabel("Scores")
+plt.show()
+
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+mse = mean_squared_error(y_test,y_pred)
 print("MSE = ",mse)
-mae=mean_absolute_error(Y_test,Y_pred)
-print("MAE =  ",mae)
+mae=mean_absolute_error(y_test,y_pred)
+print("MAE = ",mae)
 rmse=np.sqrt(mse)
-print("RMSE = ",rmse)
-*/
+print("RMSE = ",rmse) 
 ```
 
 ## Output:
-![image](https://user-images.githubusercontent.com/94508142/199451331-c9055809-63c6-4944-991b-816487ea4085.png)
+![image](https://user-images.githubusercontent.com/94508142/204134420-ae9a2f16-7719-4637-b734-6a423aafd8c3.png)
 
+![image](https://user-images.githubusercontent.com/94508142/204134444-3378988f-cb64-43a9-a6f3-7f5cb6ca80dc.png)
 
-![Screenshot (98)](https://user-images.githubusercontent.com/94508142/193318922-ce8d3195-d490-4464-8c58-21dac05c3420.png)
-![Screenshot (99)](https://user-images.githubusercontent.com/94508142/193319004-6b6259e0-66f1-41e1-b710-1bf7c75d3784.png)
-![image](https://user-images.githubusercontent.com/94508142/199451135-9b9f480c-ce6e-44a8-9026-4e7d2c7fceee.png)
+![image](https://user-images.githubusercontent.com/94508142/204134465-aedca5c0-ef37-476a-b90c-28e298f426d9.png)
+
+![image](https://user-images.githubusercontent.com/94508142/204134401-38573624-fbea-4e90-9b38-b863161b1619.png)
+
 
 
 
